@@ -1,6 +1,6 @@
 {
   "name": "projector-project",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A image carosel and tweet displaying app",
   "main": "index.js",
   "directories": {
