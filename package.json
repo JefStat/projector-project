@@ -1,0 +1,25 @@
+{
+  "name": "projector-project",
+  "version": "0.0.0",
+  "description": "A image carosel and tweet displaying app",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JefStat/projector-project.git"
+  },
+  "author": "Jef Statham",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JefStat/projector-project/issues"
+  },
+  "homepage": "https://github.com/JefStat/projector-project#readme"
+}
