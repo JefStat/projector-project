@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+'use strict';
 /**
  * Module dependencies.
  */
@@ -86,5 +86,7 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+  var addressString = addr.address === '::' ? 'localhost' : addr.address;
+  console.log('http://'+addressString+':'+port);
   debug('Listening on ' + bind);
 }

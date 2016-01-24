@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "debug": "DEBUG=app:* NODE_ENV=DEBUG node-debug ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -12,6 +13,10 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "slick-carousel": "^1.5.9"
+  },
+  "devDependencies": {
+    "node-inspector": "^0.12.5"
   }
 }
