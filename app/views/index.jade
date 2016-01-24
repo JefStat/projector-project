@@ -1,5 +1,18 @@
 extends layout
 
 block content
+  script(type="text/javascript").
+    $(document).ready(function(){
+      console.log('Starting slick');  
+      $('#slick').slick();
+    });
+
   h1= title
   p Welcome to #{title}
+  div
+    div(data-slick='{"slidesToShow": 4, "slidesToScroll": 4}')#slick
+      - for(var i = 0; i < 6; i++)
+        div
+          h3=i
+
+
