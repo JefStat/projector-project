@@ -8,6 +8,7 @@
     "test": "test"
   },
   "dependencies": {
+    "socket.io": "^1.4.4"
   },
   "devDependencies": {},
   "scripts": {

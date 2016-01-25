@@ -1,11 +1,7 @@
 extends layout
 
 block content
-  script(type="text/javascript").
-    $(document).ready(function(){
-      console.log('Starting slick');  
-      $('#slick').slick();
-    });
+  script(type="text/javascript", src='/javascripts/index_controller.js')
 
   h1= title
   p Welcome to #{title}
