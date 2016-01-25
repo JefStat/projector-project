@@ -34,3 +34,6 @@ node_modules
 
 # large files
 photos/
+
+# environment
+env.js
