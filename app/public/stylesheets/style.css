@@ -1,8 +1,33 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: black;
+  color: white;
 }
 
 a {
   color: #00B7FF;
+}
+
+div.slick-container {
+
+}
+
+div.slick-slider {
+
+}
+
+div.slick-list {
+
+}
+
+div.slick-track {
+  height: 768px;
+  width: 1024px;
+}
+
+img.slide-image {
+  max-height:100%;
+  max-width:100%;
+  margin: 0 auto;
 }

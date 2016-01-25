@@ -9,9 +9,10 @@ block content
 
   h1= title
   p Welcome to #{title}
-  div
-    div(data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": true, "autoplaySpeed": 3000, "arrows":false}')#slick
+  div.slick-container
+    div(data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": true, "autoplaySpeed": 3000, "arrows":false, "lazyLoad":"progressive", "pauseOnHover": false, "pauseOnFocus": false}')#slick
       each image, index in images
-        img(src=image)
+        div
+          img.slide-image(src=image)
 
 
