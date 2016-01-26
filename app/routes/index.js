@@ -21,7 +21,7 @@ function getImages(imageDir, cb) {
   var fileType = '.jpg';
   var files = [];
   cb = cb || function(){};
-  mkdirp(imageDir, function(err){
+  mkdirp(imageDir, function(err) {
     if (err) { cb(err, files); return; }
     fs.readdir(imageDir, function (err, list) {
       if (err) { cb(err); return; }
@@ -32,7 +32,7 @@ function getImages(imageDir, cb) {
       }
       cb(err, files);
     });
-  }
+  });
 }
 
 module.exports = router;
