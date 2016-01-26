@@ -18,7 +18,8 @@ unit:
 
 skel:
 	mkdir app test
-	touch index.js
+	touch app/app.js
 	npm install mocha chai --save-dev
+	npm install -g jshint node_debug
 
 .PHONY: test tap unit jshint skel
