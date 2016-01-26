@@ -18,15 +18,19 @@ router.get('/', function(req, res, next) {
 function getImages(imageDir, cb) {
   var fileType = '.jpg';
   var files = [];
-  fs.readdir(imageDir, function (err, list) {
-    if (err) { cb(err); return; }
-    for(var i=0; i<list.length; i++) {
-      if(path.extname(list[i]) === fileType) {
-        files.push(publicPhotoDir + list[i]); //store the file name into the array files
+  try {
+    fs.readdir(imageDir, function (err, list) {
+      if (err) { cb(err); return; }
+      for(var i=0; i<list.length; i++) {
+        if(path.extname(list[i]) === fileType) {
+          files.push(publicPhotoDir + list[i]); //store the file name into the array files
+        }
       }
-    }
-    cb(err, files);
-  });
+      if (cb) { cb(err, files); }
+    });
+  } catch(err){
+    if (cb) { cb(err, null); }
+  }
 }
 
 module.exports = router;
