@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# thumbnails
+.DS_Store
+
 # Runtime data
 pids
 *.pid
@@ -34,6 +37,3 @@ node_modules
 
 # large files
 photos/
-
-# environment
-env.js
