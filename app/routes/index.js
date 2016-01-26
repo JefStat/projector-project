@@ -4,6 +4,8 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var router = express.Router();
+
+var mkdirp = require('mkdirp');
 var imageDir = __dirname + '/../public/photos/';
 var publicPhotoDir = 'photos/';
 
@@ -18,7 +20,9 @@ router.get('/', function(req, res, next) {
 function getImages(imageDir, cb) {
   var fileType = '.jpg';
   var files = [];
-  try {
+  cb = cb || function(){};
+  mkdirp(imageDir, function(err){
+    if (err) { cb(err, files); return; }
     fs.readdir(imageDir, function (err, list) {
       if (err) { cb(err); return; }
       for(var i=0; i<list.length; i++) {
@@ -26,10 +30,8 @@ function getImages(imageDir, cb) {
           files.push(publicPhotoDir + list[i]); //store the file name into the array files
         }
       }
-      if (cb) { cb(err, files); }
+      cb(err, files);
     });
-  } catch(err){
-    if (cb) { cb(err, null); }
   }
 }
 
