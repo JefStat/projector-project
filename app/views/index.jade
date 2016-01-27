@@ -3,8 +3,8 @@ extends layout
 block content
   script(type="text/javascript", src='/javascripts/index_controller.js')
 
-  h1= title
-  p Welcome to #{title}
+  div#tweet-container
+    p#tweet-text
   div.slick-container
     div(data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": true, "autoplaySpeed": 3000, "arrows":false, "lazyLoad":"progressive", "pauseOnHover": false, "pauseOnFocus": false}')#slick
       each image, index in images

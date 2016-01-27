@@ -99,15 +99,18 @@ function onListening() {
  */
 io.on('connection', function(socket){
   console.log('a user connected');
-  var interval = setInterval(emitMessage, 1000, socket);
+  //var interval = setInterval(emitMessage, 1000, socket);
+  var interval = twit.registerForTweets(function(tweet){
+    socket.emit('Message', tweet);
+  })
   socket.on('disconnect', function(){
     console.log('user disconnected');
-    clearInterval(interval);
+    if (interval) {clearInterval(interval);}
   });
  
 });
 
-function emitMessage(socket){
-  socket.emit('Message', 'Message time is ' + Date.now());
-}
+// function emitMessage(socket){
+//   socket.emit('Message', 'Message time is ' + Date.now());
+// }
 
