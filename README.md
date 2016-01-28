@@ -19,4 +19,4 @@
 #### Use an filter endpoint from api
 https://www.imgix.com/
 
-hosted on photo-proj.herokuapp.com
+hosted on https://photo-proj.herokuapp.com/
