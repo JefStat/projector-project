@@ -38,6 +38,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+  console.log('Running in development environment');
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -45,6 +46,8 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
+} else {
+  console.log('Running in production environment');
 }
 
 // production error handler

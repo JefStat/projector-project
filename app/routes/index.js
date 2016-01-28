@@ -17,15 +17,17 @@ var publicPhotoDir = 'photos/';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  getImgix(fileNameList, function (err, files) {
-    if (err) { console.error(err); res.status(500).send(err); return; }
-    res.render('index', { title: 'Photo Project', images: files });
-  });
-
-  // getImages(imageDir, function (err, files) {
-  //   if (err) { console.error(err); res.status(500).send(err); return; }
-  //   res.render('index', { title: 'Photo Project', images: files });
-  // });
+  if (env.NODE_ENV === 'production') {
+    getImgix(fileNameList, function(err, files) {
+      if (err) { console.error(err); res.status(500).send(err); return; }
+      res.render('index', { title: 'Photo Project', images: files });
+    });
+  } else {
+    getImages(imageDir, function(err, files) {
+      if (err) { console.error(err); res.status(500).send(err); return; }
+      res.render('index', { title: 'Photo Project', images: files });
+    });
+  }
 });
 
 function getImgix(fileNameList, cb) {
@@ -36,8 +38,11 @@ function getImgix(fileNameList, cb) {
     }
     var list = _.split(data, '\n');
     var fileNameArray = [];
-    for(var i=0; i<list.length; i++)  {
-      fileNameArray.push(imgixClient.path(list[i]).toUrl({ w: 1024, h: 768 }).toString());
+    for (var i = 0; i < list.length; i++) {
+      fileNameArray.push(imgixClient.path(list[i]).toUrl({
+        w: 1024,
+        h: 768
+      }).toString());
     }
     cb(err, fileNameArray);
   });
@@ -46,15 +51,21 @@ function getImgix(fileNameList, cb) {
 function getImages(imageDir, cb) {
   var fileType = '.jpg';
   var files = [];
-  cb = cb || function(){};
+  cb = cb || function() {};
   mkdirp(imageDir, function(err) {
-    if (err) { cb(err, files); return; }
-    fs.readdir(imageDir, function (err, list) {
-      if (err) { cb(err); return; }
-      for(var i=0; i<list.length; i++) {
-        if(path.extname(list[i]) === fileType) {
+    if (err) {
+      cb(err, files);
+      return;
+    }
+    fs.readdir(imageDir, function(err, list) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      for (var i = 0; i < list.length; i++) {
+        if (path.extname(list[i]) === fileType) {
           //store the file name into the array files
-          files.push(path.join(publicPhotoDir, list[i])); 
+          files.push(path.join(publicPhotoDir, list[i]));
         }
       }
       cb(err, files);
