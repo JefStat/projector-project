@@ -3,8 +3,6 @@
 /**
  * Module dependencies.
  */
-
-require('../config/env.js');
 var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
@@ -99,7 +97,6 @@ function onListening() {
  */
 io.on('connection', function(socket){
   console.log('a user connected');
-  //var interval = setInterval(emitMessage, 1000, socket);
   var interval = twit.registerForVanillaTweets(function(tweet){
     socket.emit('Tweet', tweet);
   })
@@ -107,14 +104,10 @@ io.on('connection', function(socket){
     socket.emit('PhotoBomb', tweet);
   })
   socket.on('disconnect', function(){
-    console.log('user disconnected');
-    if (interval) {clearInterval(interval);}
-    twit.registerForPhotoBombs(function(){});
+    console.log('user disconnected'); 
+    //TODO disconnect if no users are connected to socket io.
+    //if (interval) {clearInterval(interval);}
+    //twit.registerForPhotoBombs(function(){});
   });
  
 });
-
-// function emitMessage(socket){
-//   socket.emit('Message', 'Message time is ' + Date.now());
-// }
-
