@@ -1,9 +1,14 @@
 'use strict';
 
+var ImgixClient = require('imgix-core-js');
+var env = require('../config/env.js');
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var router = express.Router();
+
+
+var client = new ImgixClient(env.IMGIX_DOMAIN, env.IMGIX_SECURE_TOKEN);
 
 var mkdirp = require('mkdirp');
 var imageDir = __dirname + '/../public/photos/';
