@@ -15,32 +15,43 @@ var isPhotoBomb = function(tweet) {
 }
 
 var tweetBuffer = [];
-var photoBombCB = function(){};
+var photoBombCB = function() {};
 
-client.stream('statuses/filter', {
-  track: 'javascript' //'#hollyjef2016'
-}, function(stream) {
-  stream.on('data', function(tweet) {
-    if (isPhotoBomb(tweet)) {
-      photoBombCB(tweet);
-    } else {
-      if (tweetBuffer.length < 100) {
-        tweetBuffer.push(tweet);
-        console.log("tweet buffered");
+var reconnect = null;
+
+var connect = function() {
+  reconnect = null;
+  client.stream('statuses/filter', {
+    track: 'javascript' //'#hollyjef2016'
+  }, function(stream) {
+    stream.on('data', function(tweet) {
+      if (isPhotoBomb(tweet)) {
+        photoBombCB(tweet);
       } else {
-        console.log("tweet dropped");
+        if (tweetBuffer.length < 100) {
+          tweetBuffer.push(tweet);
+          console.log("tweet buffered");
+        } else {
+          console.log("tweet dropped");
+        }
       }
-    }
-  });
+    });
 
-  stream.on('end', function(res) {
-    console.log('twitter stream ended (code, message) ', res.statusCode, res.statusMessage);
-  });
+    stream.on('end', function(res) {
+      console.log('twitter stream ended (code, message) ', res.statusCode, res.statusMessage);
+    });
 
-  stream.on('error', function(error) {
-    throw error;
+    stream.on('error', function(error) {
+      console.error('Twitter stream error ', error);
+      if (!reconnect) {
+        // try to reconnect in 10s
+        reconnect = setInterval(connect, 10000);
+      }
+    });
   });
-});
+};
+
+connect();
 
 module.exports = {
   twitterClient: client,
