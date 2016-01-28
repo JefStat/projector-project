@@ -1,5 +1,5 @@
 'use strict';
-
+var _ = require('lodash');
 var Twitter = require('twitter');
 
 var client = new Twitter({
@@ -9,17 +9,26 @@ var client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
+var isPhotoBomb = function(tweet) {
+  return _.toLower(tweet.text).indexOf('photobomb') !== -1;
+}
+
 var tweetBuffer = [];
+var photoBombCB = function(){};
 
 client.stream('statuses/filter', {
-  track: 'twitter' //'#hollyjef2016'
+  track: 'javascript' //'#hollyjef2016'
 }, function(stream) {
   stream.on('data', function(tweet) {
-    if (tweetBuffer.length < 100) {
-      tweetBuffer.push(tweet);
-      console.log("tweet buffered");
+    if (isPhotoBomb(tweet)) {
+      photoBombCB(tweet);
     } else {
-      console.log("tweet dropped");
+      if (tweetBuffer.length < 100) {
+        tweetBuffer.push(tweet);
+        console.log("tweet buffered");
+      } else {
+        console.log("tweet dropped");
+      }
     }
   });
 
@@ -34,11 +43,18 @@ client.stream('statuses/filter', {
 
 module.exports = {
   twitterClient: client,
-  registerForTweets: function(cb) {
+  registerForVanillaTweets: function(cb) {
     return setInterval(function(cb) {
       if (cb && tweetBuffer.length > 0) {
         cb(tweetBuffer.shift());
       }
     }, 10000, cb);
+  },
+  registerForPhotoBombs: function(cb) {
+    if (_.isFunction(cb)) {
+      photoBombCB = cb;
+    } else {
+      throw 'call back is not a function';
+    }
   }
 };
