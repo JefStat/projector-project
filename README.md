@@ -8,7 +8,6 @@
 ### debug web app
 - npm run debug
  
-
 ### planned easter eggs
 
 #### Photobomb
@@ -16,9 +15,8 @@
 
 #### ShowMeX
   Display the image number X next then resume carosel
-  
-#### Mustashify 
-  Mustacshify the next image on the corosel or photo bomb (note maybe a free heroku instance that is sleeping https://mustachify.me/)
-  
-#### https://www.imgix.com/pricing, http://cloudinary.com/features, http://glide.thephpleague.com/1.0/api/effects/
 
+#### Use an filter endpoint from api
+https://www.imgix.com/
+
+hosted on photo-proj.herokuapp.com
