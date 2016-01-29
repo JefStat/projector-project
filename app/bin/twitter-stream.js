@@ -30,9 +30,9 @@ var connect = function() {
       } else {
         if (tweetBuffer.length < 100) {
           tweetBuffer.push(tweet);
-          console.log("tweet buffered");
+          console.log('tweet buffered, buffer size ', tweetBuffer.length);
         } else {
-          console.log("tweet dropped");
+          console.log('tweet dropped');
         }
       }
     });
@@ -59,6 +59,7 @@ module.exports = {
     return setInterval(function(cb) {
       if (cb && tweetBuffer.length > 0) {
         cb(tweetBuffer.shift());
+        console.log('tweet sent, buffer size ', tweetBuffer.length);
       }
     }, 10000, cb);
   },
