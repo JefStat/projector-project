@@ -3,14 +3,16 @@ extends layout
 block content
   script(type="text/javascript", src='/javascripts/index_controller.js')
 
-  div#tweet-container
-    div#tweet-user
-      img#tweet-user-pic
-      p#tweet-user-name
-    div#tweet-content
-      p#tweet-text
-      img#tweet-img
+  
   div.slick-container#slick-container
+    div#overlay
+    div#tweet-container
+      div#tweet-user
+        img#tweet-user-pic
+        div#tweet-user-name
+      div#tweet-content
+        p#tweet-text
+        img#tweet-img
     div(data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": true, "autoplaySpeed": 3000, "arrows":false, "lazyLoad":"progressive", "pauseOnHover": false, "pauseOnFocus": false}')#slick
       each image, index in images
         div
