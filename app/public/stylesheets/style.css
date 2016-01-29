@@ -1,6 +1,11 @@
+@font-face {
+  font-family: Goudy;
+  src: url(fonts/GoudyStM-webfont.woff);
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Goudy", Helvetica, Arial, sans-serif;
   background: black;
   color: white;
 }
@@ -9,8 +14,52 @@ a {
   color: #00B7FF;
 }
 
-div.slick-container {
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  box-shadow: inset 0px 60px 120px rgba(0, 0, 0, 0.8);
+  z-index: 1
+}
 
+#tweet-container {
+  position: absolute;
+  z-index: 1;
+  padding: 10px;
+  margin-left: 30%;
+}
+
+#tweet-user {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#tweet-user-pic {
+  border-radius: 100px;
+  margin: 0 1em;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
+  width: 30px;
+}
+
+#tweet-user-name {
+  font-size: 1.5em;
+  text-shadow: 1px 2px 3px rgba(0,0,0,0.8);
+}
+
+#tweet-text {
+  width: 60%;
+  font-weight: 100;
+  padding: 0 1em;
+  font-style: italic;
+  text-shadow: 1px 2px 3px rgba(0,0,0,0.8);
+}
+
+div.slick-container {
+  position: relative;
 }
 
 div.slick-slider {
