@@ -25,6 +25,8 @@ var tweetHideInterval = null;
     //TODO array of last 3 tweets as a separate section 
     // that is not in the main 2 contents which are toggled
     console.log('Displaying tweet');
+    if (tweetHideInterval) { clearInterval(tweetHideInterval); }
+    $('#tweet-container').show();
     if (withImage) {
       // tweet.entities.media[where type === photo].media_url_https
       //$('#tweet-img').attr('src',tweet.);
@@ -32,6 +34,9 @@ var tweetHideInterval = null;
     $('#tweet-user-pic').attr('src', tweet.user.profile_image_url_https);
     $('#tweet-user-name').text(tweet.user.screen_name);
     $('#tweet-text').text(tweet.text);
+    tweetHideInterval = setInterval(function() {
+      $('#tweet-container').hide();
+    }, autoplaySpeed);
   }
 
 
