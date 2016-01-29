@@ -20,9 +20,14 @@ var photoBombCB = function() {};
 var reconnect = null;
 
 var connect = function() {
-  reconnect = null;
-  client.stream('statuses/filter',env.TwitterStream, function(stream) {
+  client.stream('statuses/filter', env.TwitterStream, function(stream) {
     stream.on('data', function(tweet) {
+      if (reconnect) {
+        clearInterval(reconnect);
+        reconnect = null;
+        console.log('Twitter stream reconnect cleared');
+      }
+      reconnectBackoff = 60000;
       if (isPhotoBomb(tweet)) {
         photoBombCB(tweet);
       } else {
@@ -37,18 +42,24 @@ var connect = function() {
 
     stream.on('end', function(res) {
       console.log('twitter stream ended (code, message) ', res.statusCode, res.statusMessage);
+      if (reconnect) {
+        clearInterval(reconnect);
+        console.log('Twitter stream reconnect cleared');
+      }
+      console.log('Twitter stream reconnect in ' + reconnectBackoff + ' ms')
+      reconnect = setInterval(connect, reconnectBackoff);
+      reconnectBackoff = reconnectBackoff + 10000;
+      if (reconnectBackoff > 120000) {
+        reconnectBackoff = 120000;
+      }
     });
 
     stream.on('error', function(error) {
       console.error('Twitter stream error ', error);
-      if (!reconnect) {
-        // try to reconnect in 10s
-        reconnect = setInterval(connect, 10000);
-      }
     });
   });
 };
-
+var reconnectBackoff = 60000;
 connect();
 
 module.exports = {
