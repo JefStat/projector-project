@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+var autoplaySpeed = 15000; //15s
+var tweetHideInterval = null;
+
   // Static functions
   var toggleContainers = function(elementId) {
     switch (elementId) {
@@ -7,7 +10,7 @@ $(document).ready(function() {
         $('#slick').slick('slickPause');
         $('#slick-container').hide();
         $('#tweet-container').show();
-        setTimeout(toggleContainers, slideDelay, 'slick');
+        setTimeout(toggleContainers, autoplaySpeed, 'slick');
         break;
       case 'slick':
       default:
@@ -31,10 +34,20 @@ $(document).ready(function() {
     $('#tweet-text').text(tweet.text);
   }
 
+
   var photoBombList = [];
 
   console.log('Starting slick');
-  $('#slick').slick();
+  $('#slick').slick({
+    'slidesToShow': 1,
+    'slidesToScroll': 1,
+    'autoplay': true,
+    'arrows': false,
+    'lazyLoad': 'progressive',
+    'pauseOnHover': false,
+    'pauseOnFocus': false,
+    'autoplaySpeed': autoplaySpeed
+  });
 
   // On before slide change
   $('.your-element').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
