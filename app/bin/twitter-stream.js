@@ -41,7 +41,10 @@ var connect = function() {
     });
 
     stream.on('end', function(res) {
-      console.log('twitter stream ended (code, message) ', res.statusCode, res.statusMessage);
+      console.log('Twitter stream ended response (code, message) ', res.statusCode, res.statusMessage);
+      console.log('response header X-Rate-Limit-Limit ', res.getHeader('X-Rate-Limit-Limit'));
+      console.log('response header X-Rate-Limit-Remaining ', res.getHeader('X-Rate-Limit-Remaining'));
+      console.log('response header X-Rate-Limit-Reset ', new Date(res.getHeader('X-Rate-Limit-Reset')));
       if (reconnect) {
         clearInterval(reconnect);
         console.log('Twitter stream reconnect cleared');
