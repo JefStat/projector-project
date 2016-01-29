@@ -21,9 +21,7 @@ var reconnect = null;
 
 var connect = function() {
   reconnect = null;
-  client.stream('statuses/filter', {
-    track: 'javascript' //'#hollyjef2016'
-  }, function(stream) {
+  client.stream('statuses/filter',env.TwitterStream, function(stream) {
     stream.on('data', function(tweet) {
       if (isPhotoBomb(tweet)) {
         photoBombCB(tweet);
