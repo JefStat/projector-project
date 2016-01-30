@@ -25,11 +25,17 @@ a {
   z-index: 1
 }
 
-#tweet-container {
+
+#tweet {
+  display: flex;
+  justify-content: center;
+  width: 100%;
   position: absolute;
+}
+#tweet-container {
+  position: relative;
   z-index: 1;
   padding: 10px;
-  margin-left: 30%;
 }
 
 #tweet-user {

@@ -62,6 +62,11 @@ var tweetHideInterval = null;
   // On before slide change
   $('#slick').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
     console.log('beforeChange', nextSlide);
+    var nextSlideImg = slick.$slides[nextSlide].getElementsByTagName('img')[0];
+    var nextSlideImgWidth = nextSlideImg.offsetWidth;
+
+    $('#tweet-container').width(nextSlideImgWidth);
+
     if (photoBombList.length > 0) {
       var tweet = photoBombList.shift();
       setTweet(tweet, true);
