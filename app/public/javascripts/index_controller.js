@@ -8,14 +8,14 @@ var tweetHideInterval = null;
     switch (elementId) {
       case 'tweet':
         $('#slick').slick('slickPause');
-        $('#slick-container').hide();
-        $('#tweet-container').show();
+        $('#slick').hide();
+        $('#tweet-img').show();
         setTimeout(toggleContainers, autoplaySpeed, 'slick');
         break;
       case 'slick':
       default:
-        $('#slick-container').show();
-        $('#tweet-container').hide();
+        $('slick').show();
+        $('#tweet-img').hide();
         $('#slick').slick('slickPlay');
         break;
     }
@@ -41,7 +41,7 @@ var tweetHideInterval = null;
     $('#tweet-text').text(tweet.text);
     tweetHideInterval = setInterval(function() {
       $('#tweet-container').hide();
-    }, autoplaySpeed);
+    }, autoplaySpeed*2);
   }
 
 
@@ -68,6 +68,7 @@ var tweetHideInterval = null;
     $('#tweet-container').width(nextSlideImgWidth);
 
     if (photoBombList.length > 0) {
+      refreshPhotobombCount();
       var tweet = photoBombList.shift();
       setTweet(tweet, true);
       toggleContainers('tweet');
@@ -78,18 +79,20 @@ var tweetHideInterval = null;
   var socket = io();
   socket.on('Tweet', function(tweet) {
     console.log('Tweet recieved');
-    setTweet(tweet, true);
+    setTweet(tweet);
   });
 
   socket.on('PhotoBomb', function(tweet) {
     console.log('Image recieved');
     photoBombList.push(tweet);
-    $('#photoBombCount').text(photoBombList.length);
+    refreshPhotobombCount();
   });
-
 
   var goto = function(index) {
     $('#slick').slick('slickGoTo', index);
   }
 
+  var refreshPhotobombCount = function() {
+    $('#photo-bomb-count').text(photoBombList.length);
+  }
 });

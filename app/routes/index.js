@@ -20,12 +20,12 @@ router.get('/', function(req, res, next) {
   if (env.NODE_ENV === 'production') {
     getImgix(fileNameList, function(err, files) {
       if (err) { console.error(err); res.status(500).send(err); return; }
-      res.render('index', { title: 'Photo Project', images: files });
+      res.render('index', { title: 'Photo Project', images: files, tracking: env.TwitterStream.track });
     });
   } else {
     getImages(imageDir, function(err, files) {
       if (err) { console.error(err); res.status(500).send(err); return; }
-      res.render('index', { title: 'Photo Project', images: files });
+      res.render('index', { title: 'Photo Project', images: files, tracking: env.TwitterStream.track });
     });
   }
 });

@@ -2,7 +2,6 @@ extends layout
 
 block content
   script(type="text/javascript", src='/javascripts/index_controller.js')
-
   div.slick-container#slick-container
     div#overlay
     div#tweet
@@ -17,3 +16,12 @@ block content
       each image, index in images
         div
           img.slide-image(src=image)
+  div#footer-overlay 
+    div#footer
+        p 
+        | Tweet 
+        b #{tracking}
+        br
+        b #photobomb 
+        | count 
+        span#photo-bomb-count 0
