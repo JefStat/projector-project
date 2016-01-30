@@ -90,16 +90,16 @@ function onListening() {
  * Socket io server
  */
 io.on('connection', function(socket){
-  console.log('a user connected ', socket);
+  console.log('a user connected ', socket.id);
   var interval = twit.registerForVanillaTweets(function(tweet){
     socket.emit('Tweet', tweet);
-    console.log('Tweet  emitted', tweet);
+    console.log('Tweet  emitted', tweet.text);
   })
   twit.registerForPhotoBombs(function(tweet){
     socket.emit('PhotoBomb', tweet);
-    console.log('PhotoBomb  emitted', tweet);
+    console.log('PhotoBomb  emitted', tweet.text);
   })
   socket.on('disconnect', function(a){
-    console.log('user disconnected', a);
+    console.log('user disconnected ', a, socket.id);
   }); 
 });
