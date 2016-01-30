@@ -78,9 +78,12 @@ a {
   background-color: transparent;
   /* box-shadow: inset 0px 60px 120px rgba(0, 0, 0, 0.8); */
   z-index: 1;
-  font-size: x-large;
+  font: x-large "Goudy", Helvetica, Arial, sans-serif;
 }
 
+.highlight-text {
+  color: cornflowerblue;
+}
 
 div.slick-container {
   position: relative;
