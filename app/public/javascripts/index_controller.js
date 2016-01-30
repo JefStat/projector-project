@@ -22,8 +22,6 @@ var tweetHideInterval = null;
   };
 
   var setTweet = function(tweet, withImage) {
-    //TODO array of last 3 tweets as a separate section
-    // that is not in the main 2 contents which are toggled
     console.log('Displaying tweet ', tweet);
     if (tweetHideInterval) { clearInterval(tweetHideInterval); }
     $('#tweet-container').show();
@@ -32,10 +30,12 @@ var tweetHideInterval = null;
       var media = entities.media || [];
       var image = _.find(media, function(o) { return o.type === 'photo' ;});
       if (image) {
-        var url = img.media_url_https
+        console.log('Applying a tweet image');
+        $('#tweet-img').show();
+        var url = image.media_url_https
         $('#tweet-img').attr('src', url);
       }
-    }
+    } else { $('#tweet-img').hide(); }
     $('#tweet-user-pic').attr('src', tweet.user.profile_image_url_https);
     $('#tweet-user-name').text(tweet.user.screen_name);
     $('#tweet-text').text(tweet.text);
