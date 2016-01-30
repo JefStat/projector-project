@@ -22,14 +22,19 @@ var tweetHideInterval = null;
   };
 
   var setTweet = function(tweet, withImage) {
-    //TODO array of last 3 tweets as a separate section 
+    //TODO array of last 3 tweets as a separate section
     // that is not in the main 2 contents which are toggled
-    console.log('Displaying tweet');
+    console.log('Displaying tweet ', tweet);
     if (tweetHideInterval) { clearInterval(tweetHideInterval); }
     $('#tweet-container').show();
     if (withImage) {
-      // tweet.entities.media[where type === photo].media_url_https
-      //$('#tweet-img').attr('src',tweet.);
+      var entities = tweet.entities || {};
+      var media = entities.media || [];
+      var image = _.find(media, function(o) { return o.type === 'photo' ;});
+      if (image) {
+        var url = img.media_url_https
+        $('#tweet-img').attr('src', url);
+      }
     }
     $('#tweet-user-pic').attr('src', tweet.user.profile_image_url_https);
     $('#tweet-user-name').text(tweet.user.screen_name);
@@ -55,7 +60,7 @@ var tweetHideInterval = null;
   });
 
   // On before slide change
-  $('.your-element').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+  $('#slick').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
     console.log('beforeChange', nextSlide);
     if (photoBombList.length > 0) {
       var tweet = photoBombList.shift();
@@ -68,7 +73,7 @@ var tweetHideInterval = null;
   var socket = io();
   socket.on('Tweet', function(tweet) {
     console.log('Tweet recieved');
-    setTweet(tweet);
+    setTweet(tweet, true);
   });
 
   socket.on('PhotoBomb', function(tweet) {
