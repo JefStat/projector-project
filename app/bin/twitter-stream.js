@@ -20,6 +20,7 @@ var photoBombCB = function() {};
 var reconnect = null;
 
 var connect = function() {
+  console.log('Twitter stream connecting with params ', JSON.stringify(env.TwitterStream,null,2));
   client.stream('statuses/filter', env.TwitterStream, function(stream) {
     stream.on('data', function(tweet) {
       if (reconnect) {
